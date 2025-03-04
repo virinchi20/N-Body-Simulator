@@ -24,6 +24,9 @@ def start():
 
     space = Rectangle(origin[0], origin[1], screen.get_width()/2, screen.get_height()/2)
     qt = QuadTree(space)
+    qt.subdivide()
+    #print(qt.northeast.x)
+    
 
     #body_pos = origin
 
@@ -44,7 +47,7 @@ def start():
         #pygame.draw.circle(screen, "white", body_pos, 1)
         for i in range(len(bodies)):
             pygame.draw.circle(screen, "white", bodies[i].position, bodies[i].radius)
-
+        
         qt.draw(screen)
 
         pygame.display.flip()
