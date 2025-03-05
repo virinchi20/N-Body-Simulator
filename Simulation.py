@@ -23,8 +23,8 @@ def start():
     origin = pygame.Vector2(screen.get_width()/2, screen.get_height()/2)
 
     space = Rectangle(origin[0], origin[1], screen.get_width()/2, screen.get_height()/2)
-    qt = QuadTree(space)
-    qt.subdivide()
+    #qt = QuadTree(space)
+    #qt.subdivide()
     #print(qt.northeast.x)
     
 
@@ -32,7 +32,7 @@ def start():
 
     bodies = []
     for i in range(10):
-        bodies.append(Body([random.randint(0, screen.get_width()), random.randint(0, screen.get_height())], random.randint(1,1000), [0, 0]))
+        bodies.append(Body([random.randint(1, screen.get_width()), random.randint(1, screen.get_height())], random.randint(1,1000), [0, 0]))
 
     running = True
 
@@ -44,11 +44,14 @@ def start():
 
         screen.fill("black")
 
+        qt = QuadTree(space, screen)
+
         #pygame.draw.circle(screen, "white", body_pos, 1)
         for i in range(len(bodies)):
             pygame.draw.circle(screen, "white", bodies[i].position, bodies[i].radius)
+            qt.insert(bodies[i])
         
-        qt.draw(screen)
+        #qt.draw(screen)
 
         pygame.display.flip()
 
