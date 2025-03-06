@@ -31,26 +31,44 @@ def start():
     #body_pos = origin
 
     bodies = []
-    for i in range(10):
-        bodies.append(Body([random.randint(1, screen.get_width()), random.randint(1, screen.get_height())], random.randint(1,1000), [0, 0]))
+    #for i in range(1000):
+    #    bodies.append(Body([random.randint(1, screen.get_width()), random.randint(1, screen.get_height())], random.randint(1,1000), [0, 0]))
 
+    screen.fill("black")
+    qt = QuadTree(space, screen)
     running = True
 
     while running:
 
+        
+        qt.draw(screen)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                print(pos)
+                #print(pos[0]+10)
+                body = Body(pygame.mouse.get_pos(), random.randint(1, 500), [0, 0])
+                bodies.append(body)
+                qt.insert(body)
+                pygame.draw.circle(screen, "white", body.position, body.radius)
+                
 
-        screen.fill("black")
+        
 
-        qt = QuadTree(space, screen)
+        
+        """
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                return
 
         #pygame.draw.circle(screen, "white", body_pos, 1)
         for i in range(len(bodies)):
             pygame.draw.circle(screen, "white", bodies[i].position, bodies[i].radius)
             qt.insert(bodies[i])
-        
+        """
         #qt.draw(screen)
 
         pygame.display.flip()

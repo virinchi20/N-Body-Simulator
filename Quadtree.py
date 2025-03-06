@@ -10,6 +10,7 @@ class QuadTree:
         self.screen = screen
         self.draw(screen)
         
+        
     
     def draw(self, screen):
         x = self.boundary.x
@@ -21,6 +22,11 @@ class QuadTree:
         pygame.draw.line(screen, "blue", (x-w, y+h), (x+w, y+h), 2)
         pygame.draw.line(screen, "blue", (x-w, y-h), (x-w, y+h), 2)
         pygame.draw.line(screen, "blue", (x+w, y-h), (x+w, y+h), 2)
+        # if self.divided:
+        #     self.northeast.draw(screen)
+        #     self.northwest.draw(screen)
+        #     self.southeast.draw(screen)
+        #     self.southwest.draw(screen)
 
     def subdivide(self):
         x = self.boundary.x
@@ -41,19 +47,43 @@ class QuadTree:
 
     def insert(self, body):
 
-        if(self.boundary.contains(body) == False):
-            return
+        if(not self.boundary.contains(body)):
+            return False
 
-        if len(self.bodies) < self.capacity:
+        if len(self.bodies) < self.capacity and not self.divided:
             self.bodies.append(body)
-        else:
-            if not self.divided:
-                self.subdivide()        
+            return True
+        
+        if not self.divided:
+            self.subdivide()   
 
-            self.northeast.insert(body)
-            self.northwest.insert(body)
-            self.southeast.insert(body)
-            self.southwest.insert(body)
+            for b in self.bodies:
+                if self.northeast.insert(b):
+                    pass
+                elif self.northwest.insert(b):
+                    pass
+                elif self.southeast.insert(b):
+                    pass
+                elif self.southwest.insert(b):
+                    pass
+            self.bodies = []
+        
+        if self.northeast.insert(body):
+            return True
+        elif self.northwest.insert(body):
+            return True
+        elif self.southeast.insert(body):
+            return True
+        elif self.southwest.insert(body):
+            return True
+
+        return False
+            
+
+            
+            
+            
+            
 
 
                 
