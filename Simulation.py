@@ -50,7 +50,7 @@ def start():
                 pos = pygame.mouse.get_pos()
                 print(pos)
                 #print(pos[0]+10)
-                body = Body(pygame.mouse.get_pos(), random.randint(1, 500), [0, 0])
+                body = Body(pygame.mouse.get_pos(), random.randint(1, 1000), [0, 0])
                 bodies.append(body)
                 qt.insert(body)
                 pygame.draw.circle(screen, body.color, body.position, body.radius)

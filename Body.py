@@ -4,6 +4,7 @@ class Body:
     def __init__(self, position, mass, velocity):
         self.x = position[0]
         self.y = position[1]
+        self.position = [self.x, self.y]
         self.vx = velocity[0]
         self.vy = velocity[1]
         self.ax = 0
