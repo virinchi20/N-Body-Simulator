@@ -53,7 +53,7 @@ def start():
                 body = Body(pygame.mouse.get_pos(), random.randint(1, 500), [0, 0])
                 bodies.append(body)
                 qt.insert(body)
-                pygame.draw.circle(screen, "white", body.position, body.radius)
+                pygame.draw.circle(screen, body.color, body.position, body.radius)
                 
 
         

@@ -6,8 +6,8 @@ class Rectangle:
         self.h = h
     
     def contains(self, body):
-        body_x = body.position[0]
-        body_y = body.position[1]
+        body_x = body.x
+        body_y = body.y
         return (
             body_x >= self.x - self.w and
             body_x < self.x + self.w and
