@@ -9,7 +9,8 @@ class QuadTree:
         self.divided = False
         self.screen = screen
         self.draw(screen)
-        
+        self.total_mass = 0
+        self.center_of_mass = [0, 0]
         
     
     def draw(self, screen):
@@ -49,6 +50,16 @@ class QuadTree:
 
         if(not self.boundary.contains(body)):
             return False
+        
+
+        new_mass = self.total_mass + body.mass
+        self.center_of_mass[0] = (self.center_of_mass[0]*self.total_mass + body.x*body.mass)/new_mass
+        self.center_of_mass[1] = (self.center_of_mass[1]*self.total_mass + body.y*body.mass)/new_mass
+        self.total_mass = new_mass
+
+
+        #self.total_mass += body.mass
+        #self.total_mass = sum(self.bodies.mass)
 
         if len(self.bodies) < self.capacity and not self.divided:
             self.bodies.append(body)
@@ -66,6 +77,7 @@ class QuadTree:
                     pass
                 elif self.southwest.insert(b):
                     pass
+            #self.bodies.append(body)
             self.bodies = []
         
         if self.northeast.insert(body):
