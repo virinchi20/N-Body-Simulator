@@ -8,7 +8,7 @@ class QuadTree:
         self.bodies = []
         self.divided = False
         self.screen = screen
-        self.draw(screen)
+        #self.draw(screen)
         self.total_mass = 0
         self.center_of_mass = [0, 0]
         
@@ -23,11 +23,11 @@ class QuadTree:
         pygame.draw.line(screen, "blue", (x-w, y+h), (x+w, y+h), 2)
         pygame.draw.line(screen, "blue", (x-w, y-h), (x-w, y+h), 2)
         pygame.draw.line(screen, "blue", (x+w, y-h), (x+w, y+h), 2)
-        # if self.divided:
-        #     self.northeast.draw(screen)
-        #     self.northwest.draw(screen)
-        #     self.southeast.draw(screen)
-        #     self.southwest.draw(screen)
+        if self.divided:
+            self.northeast.draw(screen)
+            self.northwest.draw(screen)
+            self.southeast.draw(screen)
+            self.southwest.draw(screen)
 
     def subdivide(self):
         x = self.boundary.x

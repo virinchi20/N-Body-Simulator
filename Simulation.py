@@ -30,7 +30,7 @@ def start():
 
     space = Rectangle(origin[0], origin[1], screen.get_width()/2, screen.get_height()/2)
     
-    qt = QuadTree(space, screen)
+    #qt = QuadTree(space, screen)
     bodies = []
     """
     for i in range(1000):
@@ -39,7 +39,7 @@ def start():
         qt.insert(bodies[i])
     """
     
-    
+    show_quadtree = False
 
     dt = 0.1
     running = True
@@ -47,7 +47,7 @@ def start():
     while running:
 
         
-        qt.draw(screen)
+        #qt.draw(screen)
     
             
         for event in pygame.event.get():
@@ -55,13 +55,23 @@ def start():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-                print(pos)
+                #print(pos)
                 #print(pos[0]+10)
                 body = Body(pygame.mouse.get_pos(), random.randint(1, 150), [0, 0])
                 bodies.append(body)
-                qt.insert(body)
+                #qt.insert(body)
+                #qt.draw(screen)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    show_quadtree = not show_quadtree
                 
                 
+        screen.fill("black")
+
+        qt = QuadTree(space, screen)
+        for body in bodies:
+            qt.insert(body)
+
         for body in bodies:
             fx, fy = body.calculate_force(qt, SOFTENING, THETA, G)
             body.ax = fx/body.mass
@@ -71,8 +81,12 @@ def start():
             body.update_velocity(dt)
             body.update_position(dt, screen)
 
+        if show_quadtree:
+            qt.draw(screen)
+
         for body in bodies:
             pygame.draw.circle(screen, body.color, [body.x, body.y], body.radius)
+        
 
         pygame.display.flip()
 
