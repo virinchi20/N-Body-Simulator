@@ -6,6 +6,7 @@ import random
 from Body import Body
 from Rectangle import Rectangle
 from QuadTree import QuadTree
+from dotenv import load_dotenv
 
 
 
@@ -15,6 +16,10 @@ def start():
     pygame.init()
     clock = pygame.time.Clock()
     WIDTH, HEIGHT = 1000, 800
+    SOFTENING = 5.0
+    #G = 6.67430e-11
+    G = 20
+    THETA = 0.5
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     screen.fill("black")
     pygame.display.set_caption("2D Space")
@@ -45,8 +50,6 @@ def start():
         qt.draw(screen)
     
             
-            
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -57,9 +60,19 @@ def start():
                 body = Body(pygame.mouse.get_pos(), random.randint(1, 150), [0, 0])
                 bodies.append(body)
                 qt.insert(body)
-                pygame.draw.circle(screen, body.color, [body.x, body.y], body.radius)
                 
+                
+        for body in bodies:
+            fx, fy = body.calculate_force(qt, SOFTENING, THETA, G)
+            body.ax = fx/body.mass
+            body.ay = fy/body.mass
 
+        for body in bodies:
+            body.update_velocity(dt)
+            body.update_position(dt, screen)
+
+        for body in bodies:
+            pygame.draw.circle(screen, body.color, [body.x, body.y], body.radius)
 
         pygame.display.flip()
 
