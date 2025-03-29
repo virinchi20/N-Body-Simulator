@@ -89,7 +89,7 @@ def start():
     clock = pygame.time.Clock()
     WIDTH, HEIGHT = 1000, 800
     SOFTENING = 5.0
-    G = 1
+    G = 0.1
     THETA = 0.5
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     screen.fill("black")
