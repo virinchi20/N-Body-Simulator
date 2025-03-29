@@ -168,8 +168,9 @@ def start():
                     accelerations = new_accelerations
                     
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    show_quadtree = not show_quadtree
+                if not use_gpu:
+                    if event.key == pygame.K_q:
+                        show_quadtree = not show_quadtree
                 if event.key == pygame.K_g:
                     if use_gpu:
                         n_bodies = len(bodies)
