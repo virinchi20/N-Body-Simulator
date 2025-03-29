@@ -133,6 +133,8 @@ def start():
         positions[i][0] = body.x
         positions[i][1] = body.y
         masses[i] = body.mass
+    
+    #use_gpu = not use_gpu
 
     while running:
         
@@ -175,7 +177,11 @@ def start():
                     if use_gpu:
                         n_bodies = len(bodies)
                     elif not use_gpu:
-                        bodies = bodies[:n_bodies]
+                        try:
+                            bodies = bodies[:n_bodies]
+                        except:
+                            bodies = bodies
+                        
                     use_gpu = not use_gpu
                     print(f"Using {'GPU' if use_gpu else 'CPU'}")
                     
