@@ -87,9 +87,9 @@ def start():
     # Initialize pygame
     pygame.init()
     clock = pygame.time.Clock()
-    WIDTH, HEIGHT = 1000, 800
+    WIDTH, HEIGHT = 1500, 950
     SOFTENING = 5.0
-    G = 0.1
+    G = 0.75
     THETA = 0.5
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     screen.fill("black")
@@ -105,6 +105,10 @@ def start():
     NUM_BODIES = 1000  # Increased for better demonstration of GPU advantage
     bodies = []
     
+    #center_mass = Body([WIDTH//2, HEIGHT//2], 1000000, [0, 0])
+    #center_mass.radius = 20
+    #bodies.append(center_mass)
+
     for i in range(NUM_BODIES):
         bodies.append(Body(
             [random.randint(1, screen.get_width()), random.randint(1, screen.get_height())],
@@ -134,7 +138,11 @@ def start():
         positions[i][1] = body.y
         masses[i] = body.mass
     
+
+    #For video demo
     #use_gpu = not use_gpu
+    switch = 0
+
 
     while running:
         
@@ -185,8 +193,7 @@ def start():
                     use_gpu = not use_gpu
                     print(f"Using {'GPU' if use_gpu else 'CPU'}")
                     
-                    
-                
+       
         screen.fill("black")
 
         if use_gpu:
@@ -252,18 +259,20 @@ def start():
         avg_fps = sum(fps_history)/len(fps_history)
 
         if use_gpu:
-            text = "Direct-Sum tiling method on GPU"
+            text = "Direct-Sum using Tiling method - GPU"
+            text_surface = font.render(text, True, "green")
         else:
-            text = "Barnes-Hut CPU"
+            text = "Barnes-Hut - CPU"
+            text_surface = font.render(text, True, "orange")
         
         
-        text_surface = font.render(text, True, "white")
+        
         text_rect = text_surface.get_rect(center=(WIDTH // 2, 20))
         screen.blit(text_surface, text_rect)
 
         instructions = [
             "Click: Add Particle",
-            "G: switch direct-sum tiling GPU/Barneshut CPU",
+            "G: switch direct-Sum tiling GPU/Barneshut CPU",
             "Q: Show Quadtree",
             f"Bodies: {len(bodies)}",
             f"FPS: {avg_fps:.1f}"
@@ -274,7 +283,9 @@ def start():
             screen.blit(text_surface, (10, 10+25*i))
             
         
-                
+        if switch == 0:
+            use_gpu = not use_gpu
+            switch = 1
 
         pygame.display.flip()
         clock.tick(60)

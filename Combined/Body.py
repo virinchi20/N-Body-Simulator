@@ -10,7 +10,7 @@ class Body:
         self.ay = 0.0
         self.mass = float(mass)
         self.color = "blue" if mass < 100 else "yellow" if mass < 140 else "red"
-        self.radius = 1
+        self.radius = 1.5
     
     def update_velocity(self, dt):
         self.vx += self.ax * dt
@@ -19,7 +19,7 @@ class Body:
     def update_position(self, dt, screen):
         self.x += self.vx * dt
         self.y += self.vy * dt
-
+        
         if self.x < 0: self.x += screen.get_width()
         if self.x > screen.get_width(): self.x -= screen.get_width()
         if self.y < 0: self.y += screen.get_height()
