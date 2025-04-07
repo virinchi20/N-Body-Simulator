@@ -87,7 +87,7 @@ def start():
     # Initialize pygame
     pygame.init()
     clock = pygame.time.Clock()
-    WIDTH, HEIGHT = 1500, 950
+    WIDTH, HEIGHT = 1000, 800
     SOFTENING = 5.0
     G = 0.75
     THETA = 0.5
@@ -102,7 +102,7 @@ def start():
     space = Rectangle(origin[0], origin[1], screen.get_width()/2, screen.get_height()/2)
     
     # Create bodies
-    NUM_BODIES = 1000  # Increased for better demonstration of GPU advantage
+    NUM_BODIES = 5000  # Increased for better demonstration of GPU advantage
     bodies = []
     
     #center_mass = Body([WIDTH//2, HEIGHT//2], 1000000, [0, 0])

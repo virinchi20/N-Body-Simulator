@@ -114,12 +114,7 @@ def start():
     positions = np.zeros((NUM_BODIES, 2), dtype=np.float32)
     masses = np.zeros(NUM_BODIES, dtype=np.float32)
     accelerations = np.zeros((NUM_BODIES, 2), dtype=np.float32)
-    
-    # Use for toggle between CPU (Quadtree) and GPU (Direct Sum)
-    use_gpu = True
-    show_quadtree = False
 
-    
     # Time tracking
     dt = 0.1
     fps_history = []
