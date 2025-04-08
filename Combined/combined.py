@@ -102,13 +102,14 @@ def start():
     space = Rectangle(origin[0], origin[1], screen.get_width()/2, screen.get_height()/2)
     
     # Create bodies
-    NUM_BODIES = 5000  # Increased for better demonstration of GPU advantage
+    NUM_BODIES = 1000  # Increased for better demonstration of GPU advantage
     bodies = []
     
-    #center_mass = Body([WIDTH//2, HEIGHT//2], 1000000, [0, 0])
-    #center_mass.radius = 20
-    #bodies.append(center_mass)
-
+    """
+    center_mass = Body([WIDTH//2, HEIGHT//2], 1000000, [0, 0])
+    center_mass.radius = 20
+    bodies.append(center_mass)
+    """
     for i in range(NUM_BODIES):
         bodies.append(Body(
             [random.randint(1, screen.get_width()), random.randint(1, screen.get_height())],
