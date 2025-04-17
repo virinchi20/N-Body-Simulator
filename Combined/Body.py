@@ -21,12 +21,12 @@ class Body:
         self.y += self.vy * dt
         
         #Confined edges, the bodies that leave the edges comes back in the screen from the opposite side
-        """
+        
         if self.x < 0: self.x += screen.get_width()
         if self.x > screen.get_width(): self.x -= screen.get_width()
         if self.y < 0: self.y += screen.get_height()
         if self.y > screen.get_height(): self.y -= screen.get_height()
-        """
+        
         # Update position list as well
         self.position[0] = self.x
         self.position[1] = self.y
